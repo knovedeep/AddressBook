@@ -1,0 +1,222 @@
+
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class entireAddressBook {
+	private static ContactInfo[] contacts; 
+    private int contactCount; 
+
+   
+    public entireAddressBook() {
+    	contacts = new ContactInfo[999999999];
+		contactCount = 0;
+    }
+    
+    
+    public void addContact(ContactInfo c) {
+    	contacts[contactCount] = c;
+		contactCount++;
+    }
+
+  
+    public void printContacts() {
+		for (int i=0;i<contactCount;i++)
+			contacts[i].printContact();
+    }
+
+   
+    public int numContacts() {
+		return contactCount;
+    }
+
+  
+    private int haveContact(String s) {
+	
+		for (int i=0;i<contactCount;i++)
+	    	if (contacts[i].getEmail().equals(s))
+				return i;
+		return -1;
+    }
+
+    private int haveFirstName(String name) {
+    	for (int i=0;i<contactCount;i++)
+	    	if (contacts[i].getFirstName().equals(name))
+				return i;
+		return -1;
+    }
+   
+    public void searchFirstName(String name) {
+    	
+		int place = haveFirstName(name);
+		if (place >= 0) {
+			contacts[place] = contacts[contactCount-1];
+			contacts[haveFirstName(name)].printContact();
+			//System.out.print(contacts);;
+		}
+    }
+    private int haveLastName(String name) {
+    	for (int i=0;i<contactCount;i++)
+	    	if (contacts[i].getLastName().equals(name))
+				return i;
+		return -1;
+    }
+   
+    public void searchLastName(String name) {
+    	
+		int place = haveLastName(name);
+		if (place >= 0) {
+			contacts[place] = contacts[contactCount-1];
+			contacts[haveLastName(name)].printContact();
+			
+		}
+    }
+    private int havePhoneNumber(String num) {
+    	for (int i=0;i<contactCount;i++)
+	    	if (contacts[i].getNumber().equals(num))
+				return i;
+		return -1;
+    }
+   
+    public void searchPhoneNumber(String num) {
+    	
+		int place = havePhoneNumber(num);
+		if (place >= 0) {
+			contacts[place] = contacts[contactCount-1];
+			contacts[havePhoneNumber(num)].printContact();
+			
+		}
+    }
+    private int haveEmail(String email) {
+    	for (int i=0;i<contactCount;i++)
+	    	if (contacts[i].getEmail().equals(email))
+				return i;
+		return -1;
+    }
+   
+    public void searchEmail(String email) {
+    	
+		int place = haveEmail(email);
+		if (place >= 0) {
+			contacts[place] = contacts[contactCount-1];
+			contacts[haveEmail(email)].printContact();
+			//System.out.print(contacts);;
+		}
+    }
+    public void deleteContact(String s) {
+	
+		int place = haveContact(s);
+		if (place >= 0) {
+			contacts[place] = contacts[contactCount-1];
+	    	contactCount--;
+		}
+    }
+
+    public static void main(String[] args) throws IOException {
+
+	
+		Scanner input = new Scanner(System.in);
+	
+		
+		entireAddressBook bookentry = new entireAddressBook();
+
+ 		
+		menu();
+		int choice = input.nextInt();
+	
+	
+		while (choice!=6) {
+	    
+	    	
+	    	if (choice == 1) {
+			
+				
+		    
+		    		System.out.println("Enter first name:");
+		    		String firstName = input.next();
+		    		System.out.println("Enter last name.");
+		    		String lastName = input.next();
+		    		System.out.println("Enter their phone number.");
+		    		String phoneNumber = input.next();
+		    		System.out.println("Enter email");
+		    		String email = input.next();
+		    		
+
+		    		
+		    		bookentry.addContact(new ContactInfo(firstName, lastName, phoneNumber, email));
+		    		
+				
+	    	}
+	    	
+	    	
+	    	else if (choice == 2) {
+				System.out.println("What is the email of the contact you want to delete?");
+				String name = input.next();
+				bookentry.deleteContact(name);
+	    	}
+	    	else if (choice == 3) {
+	    		System.out.println("1) First Name");
+	    		System.out.println("2) Last Name");
+	    		System.out.println("3) Phone Number");
+	    		System.out.println("4) Email");
+				System.out.println("\nPlease Specify the search Parameter: ");
+				int choice1 = input.nextInt();
+				while ((choice1 != 1) && (choice1 != 2) && (choice1 != 3)  && (choice1 != 4))  {
+		            System.out.println("Invalid choice!  Please select numbers 1 through 4 ");
+		            choice1 = input.nextInt();
+		        }
+				 switch (choice1) {
+			        case 1 : 
+			        	System.out.println("Enter a First Name");
+			        	String FirstnameSearch = input.next();
+			        	bookentry.searchFirstName(FirstnameSearch.toString());
+			        	
+			        break;
+			        case 2 :
+			        	System.out.println("Enter a Last Name");
+			        	String lastNameSearch = input.next();
+			        	bookentry.searchLastName(lastNameSearch.toString());
+			        break;
+			        case 3 :
+			        	System.out.println("Enter a Phone Number");
+			        	String PhoneNumber = input.next();
+			        	bookentry.searchPhoneNumber(PhoneNumber.toString());
+				        break;
+			        case 4 :
+			        	System.out.println("Enter an Email");
+			        	String Email = input.next();
+			        	bookentry.searchEmail(Email.toString());
+				        break;
+	    	}
+	    	}
+	    	else if (choice == 4) {
+	    		bookentry.printContacts();
+	    	}
+	    	else if (choice == 5) {
+	    		System.out.println('\n' + "Deleting Book");
+	    		bookentry = new entireAddressBook();
+	    			
+	   
+	    		   
+	    	
+		}
+	    	menu();
+	    	choice = input.nextInt();
+	}
+
+    }
+
+    public static void menu() {
+		System.out.println("\n1.)  Add an Entry");
+		System.out.println("\n2.)  Remove an Entry");
+		System.out.println("\n3.)  Search for a specific entry");
+		System.out.println("\n4.)  Print Address Book");
+		System.out.println("\n5.)  Delete Book");
+		System.out.println("\n6.)  Quit");
+		System.out.print("\nPlease choose what you'd like to do with the database:");
+	}
+    
+}

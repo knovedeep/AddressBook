@@ -1,0 +1,69 @@
+import java.util.*;
+public class runAddressBook {
+	  public static void main(String[] args) {
+
+			Scanner input = new Scanner(System.in);
+
+			// Instantiate AddressBook object
+			entireAddressBook bookentry = new entireAddressBook();
+
+	 		// Menu driven loop.
+			menu();
+			int choice = input.nextInt();
+			while (choice!=6) {
+
+		    	// Only adds contact if there is room in AddressBook blackbook.
+		    	if (choice == 1) {
+
+					
+
+						System.out.println("Enter first name:");
+			    		String firstName = input.next();
+			    		System.out.println("Enter last name.");
+			    		String lastName = input.next();
+			    		System.out.println("Enter their phone number.");
+			    		long phoneNumber = input.nextInt();
+			    		System.out.println("Enter email");
+			    		String email = input.next();
+			    		
+
+			    		// Uses information to create Contact object, which is
+			    		// a parameter to the addContact method.
+			    		 bookentry.addContact(new ContactInfo(firstName, lastName, phoneNumber, email));
+					
+		    	}
+
+		    	// Implements rest of the choices by calling appropriate AddressBook methods on blackbook.
+		    	if (choice == 2) {
+					System.out.println("What is the email of the contact you want to delete?");
+					String name = input.next();
+					 bookentry.deleteContact(name);
+		    	}
+		    	else if (choice == 3) {
+					System.out.println("\nSearching for entry");
+		    	}
+		    	else if (choice == 4) {
+		    		 bookentry.printContacts();
+		    	}
+		    	else if (choice == 5) {
+		    		System.out.println("\nDeleting Book");
+		    	
+		    
+		    	}
+		    	menu();
+		    	choice = input.nextInt();
+			}
+		}
+	  
+	    
+
+	    public static void menu() {
+	    	System.out.println("\n1.)  Add an Entry");
+			System.out.println("\n2.)  Remove an Entry");
+			System.out.println("\n3.)  Search for a specific entry");
+			System.out.println("\n4.)  Print Address Book");
+			System.out.println("\n5.)  Delete Book");
+			System.out.println("\n6.)  Quit");
+			System.out.print("\nPlease choose what you'd like to do with the database:");
+	    }
+}

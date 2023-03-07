@@ -1,0 +1,67 @@
+import java.util.*;
+public class runAddressBook {
+	  public static void main(String[] args) {
+
+			Scanner input = new Scanner(System.in);
+
+			// Instantiate AddressBook object
+			entireAddressBook blackbook = new entireAddressBook();
+
+	 		// Menu driven loop.
+			menu();
+			int choice = input.nextInt();
+			while (choice!=5) {
+
+		    	// Only adds contact if there is room in AddressBook blackbook.
+		    	if (choice == 1) {
+
+					
+
+						System.out.println("Enter first name:");
+			    		String firstName = input.next();
+			    		System.out.println("Enter last name.");
+			    		String lastName = input.next();
+			    		System.out.println("Enter their phone number.");
+			    		long phoneNumber = input.nextInt();
+			    		System.out.println("Enter email");
+			    		String email = input.next();
+			    		
+
+			    		// Uses information to create Contact object, which is
+			    		// a parameter to the addContact method.
+			    		blackbook.addContact(new ContactInfo(firstName, lastName, phoneNumber, email));
+					
+		    	}
+
+		    	// Implements rest of the choices by calling appropriate AddressBook methods on blackbook.
+		    	else if (choice == 2) {
+					System.out.println("What is the email of the contact you want to delete?");
+					String name = input.next();
+					blackbook.deleteContact(name);
+		    	}
+		    	else if (choice == 3) {
+					System.out.println("Searching for entry");
+		    	}
+		    	else if (choice == 4) {
+					blackbook.printContacts();
+		    	}
+		    	else if (choice == 5) {
+		    		System.out.println("Deleting Book");
+		    	
+		    
+		    	menu();
+		    	choice = input.nextInt();
+			}
+		}
+	  }
+	    
+
+	    public static void menu() {
+			System.out.println("1.Add a new contact to your address book.");
+			System.out.println("2.Delete a contact from your address book.");
+			System.out.println("3.Print out the number of contacts you have.");
+			System.out.println("4.Print out information of all of your contacts.");
+			System.out.println("5.Quit.");
+			System.out.println("Enter your menu choice:");
+	    }
+}
